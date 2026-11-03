@@ -1,0 +1,47 @@
+{
+  "name": "Langage C — GCC 16.2 / C11",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+
+  // Bind mount explicite : le dossier local _env est monté tel quel dans le
+  // conteneur. Tout fichier créé/modifié d'un côté est immédiatement visible
+  // de l'autre (pas de volume Docker nommé, pas de copie).
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/c-lang,type=bind,consistency=delegated",
+  "workspaceFolder": "/workspaces/c-lang",
+
+  // Nécessaire pour que gdb puisse attacher/tracer le processus débogué.
+  "runArgs": [
+    "--cap-add=SYS_PTRACE",
+    "--security-opt",
+    "seccomp=unconfined"
+  ],
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.makefile-tools"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "files.eol": "\n",
+        "files.insertFinalNewline": true,
+        "files.trimTrailingWhitespace": true,
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "[c]": {
+          "editor.defaultFormatter": "ms-vscode.cpptools",
+          "editor.formatOnSave": false
+        },
+        "C_Cpp.default.cStandard": "c11",
+        "C_Cpp.default.compilerPath": "/usr/local/bin/gcc",
+        "makefile.configureOnOpen": false
+      }
+    }
+  },
+
+  "postCreateCommand": "gcc --version | head -n1 && make --version | head -n1 && gdb --version | head -n1",
+  "remoteUser": "root"
+}

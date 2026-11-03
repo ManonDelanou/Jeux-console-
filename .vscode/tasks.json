@@ -1,0 +1,73 @@
+{
+  "version": "2.0.0",
+  // ${fileBasenameNoExtension} = le nom du fichier ouvert dans l'éditeur.
+  // Ouvrir src/exo-01.c et compiler construit donc bin/debug/exo-01.
+  "tasks": [
+    {
+      "label": "build",
+      "detail": "Compile le fichier ouvert dans l'éditeur",
+      "type": "shell",
+      "command": "make",
+      "args": ["MODE=debug", "bin/debug/${fileBasenameNoExtension}"],
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "silent", "clear": true }
+    },
+    {
+      "label": "run",
+      "detail": "Compile puis exécute le fichier ouvert dans l'éditeur",
+      "type": "shell",
+      "command": "make",
+      "args": ["run", "FILE=${fileBasenameNoExtension}"],
+      "group": { "kind": "test", "isDefault": true },
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "always", "clear": true }
+    },
+    {
+      "label": "build all",
+      "detail": "Compile tous les programmes de src/",
+      "type": "shell",
+      "command": "make",
+      "args": ["MODE=debug"],
+      "group": "build",
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "always", "clear": true }
+    },
+    {
+      "label": "build (sanitizers)",
+      "detail": "Compile le fichier ouvert avec ASan/UBSan",
+      "type": "shell",
+      "command": "make",
+      "args": ["MODE=san", "bin/san/${fileBasenameNoExtension}"],
+      "group": "build",
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "silent", "clear": true }
+    },
+    {
+      "label": "memcheck (valgrind)",
+      "detail": "Exécute le fichier ouvert sous valgrind",
+      "type": "shell",
+      "command": "make",
+      "args": ["memcheck", "FILE=${fileBasenameNoExtension}"],
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "clear": true }
+    },
+    {
+      "label": "list",
+      "detail": "Liste les programmes disponibles",
+      "type": "shell",
+      "command": "make",
+      "args": ["list"],
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "clear": true }
+    },
+    {
+      "label": "clean",
+      "type": "shell",
+      "command": "make",
+      "args": ["fclean"],
+      "problemMatcher": [],
+      "presentation": { "reveal": "silent" }
+    }
+  ]
+}

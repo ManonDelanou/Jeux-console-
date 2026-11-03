@@ -1,0 +1,41 @@
+# ---- Artefacts de compilation -----------------------------------------------
+build/
+bin/
+*.o
+*.d
+*.gch
+*.a
+a.out
+*.exe
+
+# ---- Débogage / analyse -----------------------------------------------------
+core
+core.*
+vgcore.*
+*.dSYM/
+callgrind.out.*
+massif.out.*
+
+# ---- IntelliSense / clangd (regénérés automatiquement) ----------------------
+.cache/
+compile_commands.json
+.vscode/ipch/
+.vscode/.browse.*
+.vscode/*.log
+
+# ---- Système d'exploitation -------------------------------------------------
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+desktop.ini
+
+# ---- Éditeurs ---------------------------------------------------------------
+*~
+*.swp
+*.swo
+.idea/
+
+# ---- Archive de distribution ------------------------------------------------
+_env.zip

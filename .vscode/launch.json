@@ -1,0 +1,59 @@
+{
+  "version": "0.2.0",
+  // ${fileBasenameNoExtension} = le fichier ouvert dans l'éditeur.
+  // F5 / CTRL-F5 lancent donc toujours le programme sur lequel on travaille.
+  "configurations": [
+    {
+      "name": "Debug (gdb)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/debug/${fileBasenameNoExtension}",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      // integratedTerminal : les printf s'affichent dans le terminal VSCode
+      // et le scanf peut y lire ce que l'étudiant tape.
+      "console": "integratedTerminal",
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "preLaunchTask": "build",
+      "setupCommands": [
+        {
+          "description": "Affichage lisible des structures dans gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Désactiver la pagination",
+          "text": "set pagination off",
+          "ignoreFailures": true
+        }
+      ]
+    },
+    {
+      "name": "Debug + sanitizers (gdb)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/san/${fileBasenameNoExtension}",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [
+        { "name": "ASAN_OPTIONS", "value": "abort_on_error=1:detect_leaks=1" },
+        { "name": "UBSAN_OPTIONS", "value": "print_stacktrace=1" }
+      ],
+      "console": "integratedTerminal",
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "preLaunchTask": "build (sanitizers)",
+      "setupCommands": [
+        {
+          "description": "Affichage lisible des structures dans gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}
